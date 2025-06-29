@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 // 🔑 Подключаем ключ Firebase
-const serviceAccount = require('./firebase-key.json');const serviceAccount = {
+const serviceAccount = {
   type: process.env.FIREBASE_TYPE,
   project_id: process.env.FIREBASE_PROJECT_ID,
   private_key_id: process.env.FIREBASE_PRIVATE_KEY_ID,
