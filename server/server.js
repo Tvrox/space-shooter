@@ -14,17 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 // 🔑 Подключаем ключ Firebase
-const serviceAccount = JSON.parse(process.env.FIREBASE_CONFIG);
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://space-shooter-1e24a-default-rtdb.europe-west1.firebasedatabase.app/'
-});
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://space-shooter-1e24a-default-rtdb.europe-west1.firebasedatabase.app/'
-});
+const serviceAccount = require('./firebase-key.json');
 
 
 const db = admin.database();
