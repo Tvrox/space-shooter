@@ -119,11 +119,9 @@ app.post('/api/help', (req, res) => {
 
 // 📂 Отдаём статику (в самом конце)
 // 📂 Отдаём статику
-app.use(express.static(path.join(__dirname, 'client/dist')));
-
-// 🧭 Отдаём index.html для всех не-API маршрутов
+app.use(express.static(path.join(__dirname, '../client/dist')));
 app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/dist/index.html'));
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
 
