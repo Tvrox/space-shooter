@@ -14,8 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 // 🔑 Подключаем ключ Firebase
-const raw = process.env.FIREBASE_CONFIG_JSON.replace(/\\n/g, '\n');
-const serviceAccount = JSON.parse(raw);
+const serviceAccount = JSON.parse(process.env.FIREBASE_CONFIG_JSON);
 
 
 admin.initializeApp({
