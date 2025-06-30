@@ -1,19 +1,18 @@
-require('dotenv').config(); // Подключаем .env
-const nodemailer = require('nodemailer'); // Для отправки email
+require('dotenv').config(); 
+const nodemailer = require('nodemailer'); 
 const express = require('express');
 const cors = require('cors');
 const admin = require('firebase-admin');
 const path = require('path');
-
-
 const app = express();
+const db = admin.database();
+const scoresRef = db.ref('scores');
 
 
-// 🔓 Разрешаем CORS и JSON-запросы
 app.use(cors());
 app.use(express.json());
 
-// 🔑 Подключаем ключ Firebase
+
 const adminConfig = {
   type: process.env.FIREBASE_TYPE,
   project_id: process.env.FIREBASE_PROJECT_ID,
@@ -28,16 +27,13 @@ const adminConfig = {
   universe_domain: process.env.FIREBASE_UNIVERSE_DOMAIN
 };
 
+
 admin.initializeApp({
   credential: admin.credential.cert(adminConfig),
   databaseURL: 'https://space-shooter-1e24a-default-rtdb.europe-west1.firebasedatabase.app/'
 });
 
-const db = admin.database();
-const scoresRef = db.ref('scores');
 
-
-// 📤 Сохранение результата
 app.post('/api/score', (req, res) => {
   const { name, score } = req.body;
 
@@ -62,7 +58,6 @@ app.post('/api/score', (req, res) => {
 });
 
 
-// 📥 Получение топ-10 по очкам
 app.get('/api/scores', (req, res) => {
   scoresRef.once('value', snapshot => {
     const records = [];
@@ -82,7 +77,6 @@ app.get('/api/scores', (req, res) => {
 });
 
 
-// ✉️ Обработка формы помощи (поставлен выше статики!)
 app.post('/api/help', (req, res) => {
   const { name, email, message } = req.body;
 
@@ -117,15 +111,12 @@ app.post('/api/help', (req, res) => {
 });
 
 
-// 📂 Отдаём статику (в самом конце)
-// 📂 Отдаём статику
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
 
-// 🟢 Запуск сервера
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Сервер запущен: http://localhost:${PORT}`);
