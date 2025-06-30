@@ -122,8 +122,8 @@ async function loadLeaderboard() {
   const container = document.getElementById('scoreList');
   const loader = document.getElementById('loader');
 
-  container.style.display = 'none';
-  loader.style.display = 'flex';
+  container.classList.add('hidden');
+  loader.classList.remove('hidden');
 
   try {
     const response = await fetch(`${API_URL}/api/scores`);
@@ -146,14 +146,14 @@ async function loadLeaderboard() {
         container.appendChild(li);
       });
 
-      loader.style.display = 'none';
-      container.style.display = 'block';
+      loader.classList.add('hidden');
+      container.classList.remove('hidden');
     }, 2000);
 
   } catch (error) {
     console.error('❌ Ошибка при загрузке рекордов:', error);
-    loader.style.display = 'none';
-    container.style.display = 'block';
+    loader.classList.add('hidden');
+    container.classList.remove('hidden');
     container.innerHTML = '<li>Ошибка загрузки данных</li>';
   }
 }

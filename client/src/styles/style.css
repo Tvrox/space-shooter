@@ -130,6 +130,10 @@ h1 {
   padding: 20px 0;
 }
 
+.hidden {
+  display: none !important;
+}
+
 .bouncing-dots {
   display: flex;
   justify-content: space-between;
