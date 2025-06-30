@@ -5,8 +5,6 @@ const cors = require('cors');
 const admin = require('firebase-admin');
 const path = require('path');
 const app = express();
-const db = admin.database();
-const scoresRef = db.ref('scores');
 
 
 app.use(cors());
@@ -32,6 +30,10 @@ admin.initializeApp({
   credential: admin.credential.cert(adminConfig),
   databaseURL: 'https://space-shooter-1e24a-default-rtdb.europe-west1.firebasedatabase.app/'
 });
+
+
+const db = admin.database();
+const scoresRef = db.ref('scores');
 
 
 app.post('/api/score', (req, res) => {
