@@ -33,6 +33,10 @@ let useMouse = true;
 
 
 document.addEventListener('keydown', (e) => {
+  if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+    return;
+  }
+
   if (e.key in keys) {
     keys[e.key] = true;
     useMouse = false;
